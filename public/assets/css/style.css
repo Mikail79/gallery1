@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+body {
+    font-family: 'Lato', sans-serif;
+}
+
+.nav-item {
+    padding-right: 30px;
+}
+
+#navbar {
+    margin-top: 25px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    border: 1px solid rgb(255, 255, 255) ;
+    border-radius: 50px;
+    right: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.swiper {
+    width: 100%;
+    height: 600px;
+    z-index: 0;
+  }
+
+.sidebar {
+    margin: 0;
+    position: fixed;
+    left: 0;
+    width: 300px;
+    height: 100%;
+    background-color:white;
+    z-index: 5;
+}
+
+.sidebar header {
+    font-size: 22px;
+    text-align: center;
+    line-height: 120px;
+    font-weight: bold;
+}
+
+.sidebar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar ul a{
+    display: block;
+    text-decoration: none;
+    color: black;
+    height: 100%;
+    width: 100%;
+    line-height: 50px;
+    font-size: 18px;
+    padding-left: 32px;
+    box-sizing: border-box;
+    transition: .4s;
+}
+
+.sidebar ul li:hover a{
+    padding-left: 50px;
+    background-color:#0A2647;
+    color: white;
+}
+
+.sidebar ul a i{
+    margin-right: 16px;
+}
+
+
+.dashboard:hover {
+    color: #0A2647;
+}
+
+.no-arrow::after {
+    display: none;
+}
