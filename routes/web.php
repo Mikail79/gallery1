@@ -28,14 +28,30 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/album/image/{albumId}/create', [FotoController::class, 'create'])->name('foto.create');
     Route::post('/album/image/{albumId}/store', [FotoController::class, 'store'])->name('foto.store');
     Route::post('/album/image/{fotoId}/like', [LikeFotoController::class, 'store'])->name('like.add');
-    Route::delete('/album/image/{id}/remove', [LikeFotoController::class, 'destroy'])->name('like.remove');
+    Route::delete('/album/image/{id}/remove', function (Request $request, $id) {
+        $like = Like::findOrFail($id);
+        $photo = Photo::findOrFail($like->photo_id);
+    
+        // Check if the user is the owner of the photo
+        if ($photo->user_id !== auth()->id()) {
+            return response()->json(['message' => 'You cannot remove a like from this photo'], 403);
+        }
+    
+        // Delete the like
+        $like->delete();
+    
+        return response()->json(['message' => 'Like removed']);
+    })->name('like.remove');
     Route::post('/album/image/{fotoId}/komentar', [KomentarFotoController::class, 'store'])->name('comment.add');
     Route::get('/album/create', [AlbumController::class, 'create'])->name('album.create');
     Route::put('/album/{id}/update', [AlbumController::class, 'update'])->name('album.update');
+    Route::put('/foto/{id}/update', [FotoController::class, 'update'])->name('foto.update');
+    Route::put('/comment/{id}/update', [KomentarFotoController::class, 'update'])->name('comment.update');
     Route::post('/album/store', [AlbumController::class, 'store'])->name('album.store');
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::delete('/album/image/comment/{id}/remove', [KomentarFotoController::class, 'destroy'])->name('comment.remove');
     Route::delete('/album/{id}/remove', [AlbumController::class, 'destroy'])->name('album.remove');
+    Route::delete('/foto/{id}/remove', [FotoController::class, 'destroy'])->name('foto.remove');
 });
 
 Route::get('/login', [AuthController::class, 'loginIndex'])->name('loginIndex');

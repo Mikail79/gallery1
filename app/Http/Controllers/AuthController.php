@@ -52,14 +52,14 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->route('album.index')->with('success','Login sukses');
+            return redirect('/')->with('success','Login sukses');
         }
 
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
         ])->onlyInput('email');
     }
-
+    
     public function logout(Request $request)
     {
         Auth::logout();

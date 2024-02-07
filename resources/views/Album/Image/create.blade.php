@@ -18,7 +18,7 @@
         <h4>Create</h4>
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label">Judul</label>
-          <input type="text" name="title" class="form-control" placeholder="Nama Album" aria-describedby="emailHelp">
+          <input type="text" name="title" class="form-control" placeholder="Nama Foto" aria-describedby="emailHelp">
         </div>
         <div class="mb-3 d-flex flex-column">
           <label for="exampleInputPassword1" class="form-label">Deskripsi</label>

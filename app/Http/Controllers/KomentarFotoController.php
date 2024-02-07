@@ -61,9 +61,20 @@ class KomentarFotoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, KomentarFoto $komentarFoto)
+    public function update(Request $request, $id)
     {
-        //
+        $komentar=KomentarFoto::find($id);
+        $komentarRequest=$request->validate([
+            'comment'=> 'required',
+            
+            
+        ],[
+            'comment.required'=> 'Komentar harus diisi',
+            
+            
+        ]);
+        $komentar->update($komentarRequest);
+        return redirect()->back();
     }
 
     /**

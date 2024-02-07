@@ -27,7 +27,7 @@
     <div class="col m-0 p-0">
         <nav class="navbar navbar-expand-lg" style="background-color: #0A2647">
             <div class="container px-5 py-2">
-                <a class="navbar-brand text-white" style="margin-left:175px" href="#">Dashboard</a>
+                <a class="navbar-brand text-white" style="margin-left:175px" href="/">Dashboard</a>
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-white" href="#" role="button"

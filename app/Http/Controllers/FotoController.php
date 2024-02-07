@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Foto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class FotoController extends Controller
 {
@@ -79,27 +80,36 @@ class FotoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Foto $foto)
+    public function update(Request $request, $id)
     {
-        $request->validate([
+        $foto=Foto::find($id);
+        $fotoRequest=$request->validate([
             'title'=> 'required',
             'description'=> 'required',
-            'image'=> 'required:jpeg,png,jpg,gif,svg|max:2048'
+            
         ],[
             'title.required'=> 'Judul harus diisi',
             'description.required'=>'Deskripsi harus diisi',
-            'image.required' => 'Foto harus diisi'
+            
         ]);
-
-
+        $foto->update($fotoRequest);
+        return redirect()->back();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Foto $foto)
+    public function destroy(Request $request, $id)
     {
+        $foto = Foto::findOrFail($id);
+    
+        // Delete the photo file
+        Storage::delete($foto->file_location);
+    
+        // Delete the photo record
         $foto->delete();
-        return redirect()->route('foto.index')->with('success','Foto berhasil dihapus');
+    
+        // Redirect back to the album page with a success message
+        return redirect()->route('foto.index', $foto->album_id)->with('success', 'Foto berhasil dihapus.');
     }
 }

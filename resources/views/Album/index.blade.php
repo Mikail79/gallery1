@@ -38,7 +38,14 @@
         {{-- <a href="/album/image/{{ $album->id }}" class="text-decoration-none"> --}}
             <div class="card shadow" style="width: 18rem;">
                 <div class="card-body">
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex align-items-center justify-content-center ratio ratio-16x9">
+                        @if (count($album->foto) > 0)
+                            <img class="mb-3 card-img-top img-fluid" src="{{ asset($album->foto[count($album->foto) - 1]->file_location) }}" alt="">
+                        @else
+                            <span class="">Tidak ada Foto</span>
+                        @endif
+                    </div>
+                    <div class="d-flex justify-content-between"><div class=""></div>
                         <h5 class="card-title">{{ $album->album_name }}</h5>
                         <div class="dropdown">
                             <button class="btn dropdown-toggle no-arrow" type="button" id="dropdownMenuButton-{{ $album->id }}" data-bs-toggle="dropdown" aria-expanded="false">

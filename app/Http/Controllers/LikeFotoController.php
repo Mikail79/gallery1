@@ -67,7 +67,7 @@ class LikeFotoController extends Controller
     public function destroy($id)
     {
         $likeFoto = LikeFoto::find($id);
-        $likeFoto->delete();
+        $likeFoto->delete($id);
         return redirect()->back();
     }
 }

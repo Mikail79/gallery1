@@ -23,26 +23,28 @@
                             <h4 class="text-white mx-2">{{ $foto->title }}</h4>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="like d-flex align-items-center gap-2">
-                                    @if (count($foto->likeFoto) > 0)
-                                    @foreach ($foto->likeFoto as $like)
-                                    @if ($like->user_id == Auth::user()->id)
-                                    <form action="{{ route('like.remove', $like->id) }}" method="post">
-                                      @csrf
-                                              @method('DELETE')
-                                              <button class="btn btn-outline-light btn-hover" type="submit">
-                                                <i class="bi bi-hand-thumbs-up-fill"></i>
-                                              </button>
-                                            </form>
-                                            @endif
-                                        @endforeach
-                                      @else
-                                      <form action="{{ route('like.add', $foto->id) }}" method="post">
-                                        @csrf
-                                        <button class="btn btn-outline-light btn-hover" type="submit">
-                                            <i class="bi bi-hand-thumbs-up"></i>
-                                        </button>
-                                      </form>
-                                      @endif
+                                    @auth
+    @if (count($foto->likeFoto) > 0)
+        @foreach ($foto->likeFoto as $like)
+            @if ($like->user_id == Auth::user()->id)
+                <form action="{{ route('like.remove', $like->id) }}" method="post">
+                  @csrf
+                          @method('DELETE')
+                          <button class="btn btn-outline-light btn-hover" type="submit">
+                            <i class="bi bi-hand-thumbs-up-fill"></i>
+                          </button>
+                        </form>
+            @endif
+        @endforeach
+      @else
+      <form action="{{ route('like.add', $foto->id) }}" method="post">
+        @csrf
+        <button class="btn btn-outline-light btn-hover" type="submit">
+            <i class="bi bi-hand-thumbs-up"></i>
+        </button>
+      </form>
+      @endif
+@endauth
                                       <span class="text-white">{{ count($foto->likeFoto)}}</span>
                                 </div>
                                 <div class="komen">
@@ -82,8 +84,8 @@
                                                     <div class="d-flex align-items-center">
                                                         <span class="fs-7">{{ Carbon\Carbon::parse($komentar->created_at)->diffForHumans() }}</span>
                                                         <div class="dropdown">
-                                                            <button class="btn dropdown-toggle no-arrow" type="button" id="dropdownMenuButton-{{ $komentar->id }}" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                <i class="bi bi-three-dots"></i>
+                                                            <button class="btn dropdown-toggle noarrow dropdown-btn" type="button" id="dropdownMenuButton-{{ $komentar->id }}" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                <i class="bi bi-three-dots-vertical"></i>
                                                             </button>
                                                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton-{{ $komentar->id }}">
                                                                 <li>
@@ -91,16 +93,21 @@
                                                                         @csrf
                                                                         @method('DELETE')
                                                                         <button class="btn" type="submit">
-                                                                            Delete
+                                                                            <i class="bi bi-trash"></i> Delete
                                                                         </button>
                                                                     </form>
                                                                 </li>
+                                                                <li>
+                                                                    <div class="btn">
+                                                                        <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#edit{{ $komentar->id }}">
+                                                                            <i class="bi bi-pencil-fill"></i> Edit
+                                                                        </button>
+                                                                    </div>
+                                                                </li>
                                                             </ul>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             @endforeach
-
                                         </div>
                                         <div class="mt-auto">
                                             <div class="like border-top d-flex align-items-center gap-2">
@@ -124,7 +131,7 @@
                                                     </button>
                                                   </form>
                                                   @endif
-                                                  <span class="text-white">{{ count($foto->likeFoto)}}</span>
+                                                  <span class="text-">{{ count($foto->likeFoto)}}</span>
                                             </div>
                                             <form action="{{ route('comment.add', $foto->id) }}" method="post" class="d-flex gap-2" style="width: 100%">
                                                 @csrf
@@ -139,8 +146,34 @@
                           </div>
                       </div>
                     </div>
+
+                    <div class="modal fade" id="edit{{ $komentar->id }}" tabindex="-1" aria-labelledby="edit{{ $komentar->id }}Label" aria-hidden="true">
+                        <form class="modal-dialog modal-xl modal-dialog-centered" action="{{ route('comment.update', $komentar->id) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <div class="modal-content">
+                            <div class="modal-header">
+                              <h1 class="modal-title fs-5" id="edit{{ $foto->id }}Label">Edit foto</h1>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                    <h4>Edit</h4>
+                                    <div class="mb-3">
+                                      <label for="exampleInputEmail1" class="form-label">Komentar</label>
+                                      <input value="{{ $komentar->comment }}" type="text" name="comment" class="form-control" placeholder="Komentar" aria-describedby="emailHelp">
+                                    </div>
+                                  </form>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                              <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+
                 @endforeach
         </div>
-            {{-- <h5 class="card-title">{{ $foto->title }}</h5> --}}
+
     </section>
 @endsection

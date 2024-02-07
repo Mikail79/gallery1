@@ -20,7 +20,7 @@
         <!-- Navigation-->
         <nav class="navbar navbar-light bg-light static-top">
             <div class="container">
-                <a class="navbar-brand" href="/Landing/album">Gallery bilek</a>
+                <a class="navbar-brand" href="/">Gallery bilek</a>
                 <div class="">
                     <a class="btn btn-lg" href="/album">Album</a>
                     @if (Auth::check())
