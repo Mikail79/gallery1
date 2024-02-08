@@ -23,29 +23,34 @@
                             <h4 class="text-white mx-2">{{ $foto->title }}</h4>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="like d-flex align-items-center gap-2">
-                                    @auth
-    @if (count($foto->likeFoto) > 0)
-        @foreach ($foto->likeFoto as $like)
-            @if ($like->user_id == Auth::user()->id)
-                <form action="{{ route('like.remove', $like->id) }}" method="post">
-                  @csrf
-                          @method('DELETE')
-                          <button class="btn btn-outline-light btn-hover" type="submit">
-                            <i class="bi bi-hand-thumbs-up-fill"></i>
-                          </button>
-                        </form>
-            @endif
-        @endforeach
-      @else
-      <form action="{{ route('like.add', $foto->id) }}" method="post">
-        @csrf
-        <button class="btn btn-outline-light btn-hover" type="submit">
-            <i class="bi bi-hand-thumbs-up"></i>
-        </button>
-      </form>
-      @endif
-@endauth
-                                      <span class="text-white">{{ count($foto->likeFoto)}}</span>
+                                    @php
+                                        $userLiked = false;
+                                        foreach ($foto->likeFoto as $like) {
+                                            if ($like->user_id == Auth::user()->id) {
+                                                $userLiked = true;
+                                                break;
+                                            }
+                                        }
+                                    @endphp
+                                
+                                    @if ($userLiked)
+                                        <form action="{{ route('like.remove', $like->id) }}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-outline-light btn-hover" type="submit">
+                                                <i class="bi bi-hand-thumbs-up-fill"></i> Unlike
+                                            </button>
+                                        </form>
+                                    @else
+                                        <form action="{{ route('like.add', $foto->id) }}" method="post">
+                                            @csrf
+                                            <button class="btn btn-outline-light btn-hover" type="submit">
+                                                <i class="bi bi-hand-thumbs-up"></i> Like
+                                            </button>
+                                        </form>
+                                    @endif
+                                
+                                    <span class="text-white">{{ count($foto->likeFoto) }}</span>
                                 </div>
                                 <div class="komen">
                                   <button type="button" class="btn btn-outline-light btn-hover" data-bs-toggle="modal" data-bs-target="#comment{{ $foto->id }}">({{ count($foto->komentarFoto)  }}) Komentar</button>
@@ -109,30 +114,36 @@
                                                 </div>
                                             @endforeach
                                         </div>
-                                        <div class="mt-auto">
-                                            <div class="like border-top d-flex align-items-center gap-2">
-                                                @if (count($foto->likeFoto) > 0)
-                                                @foreach ($foto->likeFoto as $like)
-                                                @if ($like->user_id == Auth::user()->id)
+                                        <div class="like d-flex align-items-center gap-2">
+                                            @php
+                                                $userLiked = false;
+                                                foreach ($foto->likeFoto as $like) {
+                                                    if ($like->user_id == Auth::user()->id) {
+                                                        $userLiked = true;
+                                                        break;
+                                                    }
+                                                }
+                                            @endphp
+                                        
+                                            @if ($userLiked)
                                                 <form action="{{ route('like.remove', $like->id) }}" method="post">
-                                                  @csrf
-                                                          @method('DELETE')
-                                                          <button class="btn btn-hover" type="submit">
-                                                            <i style="font-size: 20px" class="bi bi-hand-thumbs-up-fill"></i>
-                                                          </button>
-                                                        </form>
-                                                        @endif
-                                                    @endforeach
-                                                  @else
-                                                  <form action="{{ route('like.add', $foto->id) }}" method="post">
                                                     @csrf
-                                                    <button class="btn btn-hover" type="submit">
-                                                        <i style="font-size: 20px" class="bi bi-hand-thumbs-up"></i>
+                                                    @method('DELETE')
+                                                    <button class="btn btn-outline-grey btn-hover" type="submit">
+                                                        <i class="bi bi-hand-thumbs-up-fill"></i> Unlike
                                                     </button>
-                                                  </form>
-                                                  @endif
-                                                  <span class="text-">{{ count($foto->likeFoto)}}</span>
-                                            </div>
+                                                </form>
+                                            @else
+                                                <form action="{{ route('like.add', $foto->id) }}" method="post">
+                                                    @csrf
+                                                    <button class="btn btn-outline-grey btn-hover" type="submit">
+                                                        <i class="bi bi-hand-thumbs-up"></i> Like
+                                                    </button>
+                                                </form>
+                                            @endif
+                                        
+                                            <span class="text-white">{{ count($foto->likeFoto) }}</span>
+                                        </div>
                                             <form action="{{ route('comment.add', $foto->id) }}" method="post" class="d-flex gap-2" style="width: 100%">
                                                 @csrf
                                                 <input type="text" placeholder="Komentar..." name="comment" id="" class="form-control">
