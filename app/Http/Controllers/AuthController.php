@@ -31,7 +31,7 @@ class AuthController extends Controller
             'alamat.required' => 'Alamat harus diisi',
             'password.required'=>'Password harus diisi'
         ]);
-
+        
         User::create([
             'name'=> $request->name,
             'username'=> $request->username,
@@ -68,6 +68,6 @@ class AuthController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect()->route('login')->with('success','Berhasil Logout');
+        return redirect('/')->with('success','Berhasil Logout');
     }
 }

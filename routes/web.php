@@ -8,20 +8,12 @@ use App\Http\Controllers\LandingController;
 use App\Http\Controllers\LikeFotoController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
 Route::get('/', [LandingController::class, 'index'])->name('landing.index');
 Route::get('/album-landing/{id}', [LandingController::class, 'albumIndex'])->name('landing.album');
+Route::get('/foto-landing', [LandingController::class, 'fotoIndex'])->name('landing.foto');
 
+    
 Route::middleware(['auth'])->group(function () {
     Route::get('/album', [AlbumController::class, 'index'])->name('album.index');
     Route::get('/album/image/{albumId}', [FotoController::class, 'index'])->name('foto.index');

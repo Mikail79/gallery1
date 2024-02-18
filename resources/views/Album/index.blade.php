@@ -35,7 +35,6 @@
         @endif
 
         @foreach ($albums as $album)
-        {{-- <a href="/album/image/{{ $album->id }}" class="text-decoration-none"> --}}
             <div class="card shadow" style="width: 18rem;">
                 <div class="card-body">
                     <div class="d-flex align-items-center justify-content-center ratio ratio-16x9">
@@ -45,7 +44,7 @@
                             <span class="">Tidak ada Foto</span>
                         @endif
                     </div>
-                    <div class="d-flex justify-content-between"><div class=""></div>
+                    <div class="d-flex justify-content-between">
                         <h5 class="card-title">{{ $album->album_name }}</h5>
                         <div class="dropdown">
                             <button class="btn dropdown-toggle no-arrow" type="button" id="dropdownMenuButton-{{ $album->id }}" data-bs-toggle="dropdown" aria-expanded="false">
@@ -76,40 +75,38 @@
                             </ul>
                         </div>
                     </div>
-                  <p class="card-text">{{ $album->description }}</p>
+                    <p class="card-text">{{ $album->description }}</p>
                 </div>
-              </div>
-        {{-- </a> --}}
+            </div>
 
-  <!-- Modal -->
-  <div class="modal fade" id="edit{{ $album->id }}" tabindex="-1" aria-labelledby="edit{{ $album->id }}Label" aria-hidden="true">
-    <form class="modal-dialog modal-xl modal-dialog-centered" action="{{ route('album.update', $album->id) }}" method="POST">
-        @csrf
-        @method('PUT')
-        <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="edit{{ $album->id }}Label">Edit Album</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-                <h4>Edit</h4>
-                <div class="mb-3">
-                  <label for="exampleInputEmail1" class="form-label">Nama Album</label>
-                  <input value="{{ $album->album_name }}" type="text" name="album_name" class="form-control" placeholder="Nama Album" aria-describedby="emailHelp">
-                </div>
-                <div class="mb-3 d-flex flex-column">
-                  <label for="exampleInputPassword1" class="form-label">Deskripsi</label>
-                  <textarea value class="form-control" name="description" id="" cols="20" rows="5">{{ $album->description }}</textarea>
-                </div>
-              </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
-    </form>
-  </div>
+            <!-- Modal for editing this specific album -->
+            <div class="modal fade" id="edit{{ $album->id }}" tabindex="-1" aria-labelledby="edit{{ $album->id }}Label" aria-hidden="true">
+                <form class="modal-dialog modal-xl modal-dialog-centered" action="{{ route('album.update', $album->id) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="edit{{ $album->id }}Label">Edit Album</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h4>Edit</h4>
+                            <div class="mb-3">
+                                <label for="exampleInputEmail1" class="form-label">Nama Album</label>
+                                <input value="{{ $album->album_name }}" type="text" name="album_name" class="form-control" placeholder="Nama Album" aria-describedby="emailHelp">
+                            </div>
+                            <div class="mb-3 d-flex flex-column">
+                                <label for="exampleInputPassword1" class="form-label">Deskripsi</label>
+                                <textarea class="form-control" name="description" id="" cols="20" rows="5">{{ $album->description }}</textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         @endforeach
     </div>
 </div>
