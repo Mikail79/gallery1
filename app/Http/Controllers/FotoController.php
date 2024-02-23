@@ -13,7 +13,7 @@ class FotoController extends Controller
      * Display a listing of the resource.
      */
     public function index($albumId)
-    {
+    {   
         $fotos = Foto::where('album_id',$albumId)->get();
         return view("Album.Image.index", compact("fotos", 'albumId'));
     }
@@ -110,6 +110,6 @@ class FotoController extends Controller
         $foto->delete();
     
         // Redirect back to the album page with a success message
-        return redirect()->route('foto.index', $foto->album_id)->with('success', 'Foto berhasil dihapus.');
+        return redirect()->back()->with('success', 'Foto berhasil dihapus.');
     }
 }

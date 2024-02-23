@@ -105,7 +105,8 @@
                                         </button>
                                     </form>
                                 @endif
-                                {{ count($foto->likeFoto) }}
+                                <span class="m-3">{{ count($foto->likeFoto) }} Like</span>
+                                
                             </div>
                             <div class="komen">
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
@@ -137,7 +138,7 @@
                                                             <div class="d-flex">
                                                                 <div class="flex-grow-1">
                                                                     <p class="fw-bold">{{ $komentar->user->username }}</p>
-                                                                    @if ($komentar->user_id === Auth::id())
+                                                                    @if ($komentar->user_id === Auth::id() || Auth::user()->role === 'admin')
                                                                         <form
                                                                             action="{{ route('comment.update', $komentar->id) }}"
                                                                             method="POST">
@@ -153,7 +154,7 @@
                                                                         <p>{{ $komentar->comment }}</p>
                                                                     @endif
                                                                 </div>
-                                                                @if ($komentar->user_id === Auth::id())
+                                                                @if ($komentar->user_id === Auth::id() || Auth::user()->role === 'admin')
                                                                     <div class="dropdown">
                                                                         <button
                                                                             class="btn dropdown-toggle noarrow dropdown-btn"

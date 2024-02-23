@@ -300,6 +300,31 @@
                                                 <p>
                                                     {{ $foto->description }}
                                                 </p>
+                                                @if (Auth::user()->role === 'admin')
+                                                    <!--delete buttons for photos -->
+                                                    <div class="dropdown">
+                                                        <button class="btn dropdown-toggle noarrow" type="button"
+                                                            id="dropdownMenuButton-{{ $foto->id }}"
+                                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <i class="bi bi-three-dots"></i>
+                                                        </button>
+                                                        <ul class="dropdown-menu"
+                                                            aria-labelledby="dropdownMenuButton-{{ $foto->id }}">
+                                                            <li>
+                                                                <form class="dropdown-item"
+                                                                    action="{{ route('foto.remove', $foto->id) }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button class="btn" type="submit">
+                                                                        <i class="bi bi-trash"></i> Delete
+                                                                    </button>
+                                                                </form>
+                                                            </li>
+
+                                                        </ul>
+                                                    </div>
+                                                @endif
                                             </div>
                                             <div class="p-1 overflow-auto" style="max-height: 300px; height: 100%;">
                                                 @if (count($foto->komentarFoto) == 0)
@@ -353,6 +378,31 @@
                                                         </div>
                                                         <span
                                                             class="fs-7">{{ $komentar->created_at->diffForHumans() }}</span>
+                                                            @if (Auth::user()->role === 'admin' || $komentar->user_id == Auth::id())
+                                                            <div class="position-relative">
+                                                                <div class="dropdown">
+                                                                    <button class="btn dropdown-toggle noarrow" type="button" id="dropdownMenuButton-{{ $komentar->id }}" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                        <i class="bi bi-three-dots"></i>
+                                                                    </button>
+                                                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton-{{ $komentar->id }}">
+                                                                        <li>
+                                                                            <form class="dropdown-item" action="{{ route('comment.remove', $komentar->id) }}" method="POST">
+                                                                                @csrf
+                                                                                @method('DELETE')
+                                                                                <button class="btn" type="submit">
+                                                                                    <i class="bi bi-trash"></i> Delete
+                                                                                </button>
+                                                                            </form>
+                                                                        </li>
+                                                                        <li>
+                                                                            <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#edit{{ $komentar->id }}">
+                                                                                <i class="bi bi-pencil-fill"></i> Edit
+                                                                            </button>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        @endif
                                                     </div>
                                                 @endforeach
 

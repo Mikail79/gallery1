@@ -83,9 +83,13 @@ class KomentarFotoController extends Controller
     public function destroy($id)
     {
         $komentarFoto = KomentarFoto::find($id);
-        if ($komentarFoto->user_id != Auth::user()->id) {
+        if (Auth::user()->role=='admin') {
+            $komentarFoto->delete();     
+        }
+        elseif ($komentarFoto->user_id != Auth::user()->id) {
             return redirect()->back()->with('error', 'Kamu tidak boleh menghapus komentar orang lain!');
         }
+        
         $komentarFoto->delete();
         return redirect()->back()->with('success', 'Komentar berhasil dihapus!');
     }

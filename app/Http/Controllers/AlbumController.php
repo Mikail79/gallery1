@@ -13,7 +13,12 @@ class AlbumController extends Controller
      */
     public function index()
     {
-        $albums = Album::where('user_id', Auth::user()->id)->get();
+        $albums = ''; 
+        if (Auth::user()->role == 'admin') {
+            $albums = Album::all();
+        } elseif(Auth::user()->role == 'user') {
+            $albums = Album::where('user_id', Auth::user()->id)->get();
+        }
         return view('album.index', compact('albums'));
     }
 
@@ -97,7 +102,7 @@ class AlbumController extends Controller
         foreach ($album->foto as $photo) {
             $photo->delete();
         }
-
+        
         $album->delete();
         return redirect()->route('album.index')->with('success','Album berhasil dihapus');
     }
