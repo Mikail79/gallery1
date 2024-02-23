@@ -378,7 +378,7 @@
                                                         </div>
                                                         <span
                                                             class="fs-7">{{ $komentar->created_at->diffForHumans() }}</span>
-                                                            @if (Auth::user()->role === 'admin' || $komentar->user_id == Auth::id())
+                                                            @if (Auth::user()->role === 'admin')
                                                             <div class="position-relative">
                                                                 <div class="dropdown">
                                                                     <button class="btn dropdown-toggle noarrow" type="button" id="dropdownMenuButton-{{ $komentar->id }}" data-bs-toggle="dropdown" aria-expanded="false">
