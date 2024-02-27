@@ -6,6 +6,7 @@ use App\Http\Controllers\FotoController;
 use App\Http\Controllers\KomentarFotoController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\LikeFotoController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [LandingController::class, 'index'])->name('landing.index');
@@ -29,6 +30,8 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/album/image/comment/{id}/remove', [KomentarFotoController::class, 'destroy'])->name('comment.remove');
     Route::delete('/album/{id}/remove', [AlbumController::class, 'destroy'])->name('album.remove');
     Route::delete('/foto/{id}/remove', [FotoController::class, 'destroy'])->name('foto.remove');
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+Route::post('/profile/picture', [ProfileController::class, 'updatePicture'])->name('profile.picture');
 });
 
 Route::middleware(['admin'])->group(function () {

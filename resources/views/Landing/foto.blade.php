@@ -46,7 +46,9 @@
                         </div>
                     </section>
                     <div class="text-center">
-                        <i class="fa-solid fa-arrow-down fa-3x"></i>
+                        <a href="#section_bawah">
+                            <i class="fa-solid fa-arrow-down fa-3x bg-light rounded"></i>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -56,7 +58,18 @@
     <script>
         // Inisialisasi Carousel
         var latestPhotosCarousel = new bootstrap.Carousel(document.getElementById('latestPhotosCarousel'), {
-            interval: 300 // Waktu interval dalam milidetik antara slide
+            interval: 200 // Waktu interval dalam milidetik antara slide
+        });
+
+    </script>
+    <script>
+        $(document).ready(function(){
+            $(".fa-arrow-down").click(function() {
+                // Menggunakan animasi jQuery untuk mengarahkan halaman ke bawah
+                $('html, body').animate({
+                    scrollTop: $(document).height() - $(window).height()
+                }, 1000);
+            });
         });
     </script>
 </header>
@@ -104,7 +117,7 @@
                 </div>
             </div>
             @foreach ($fotos as $foto)
-            <div class="col-4 my-2">
+            <div class="col-4 my-2" id="section_bawah">
                 <div class="image-container">
                     <img src="{{ asset($foto->file_location) }}" class="card-img-top img-fluid"
                         alt="{{ $foto->file_location }}">
@@ -192,7 +205,7 @@
                                                                         <form
                                                                             class="dropdown-item d-flex align-items-center"
                                                                             action="{{ route('comment.remove', $komentar->id) }}"
-                                                                            method="POST">
+                                                                            method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus komentar ini?');">
                                                                             @csrf
                                                                             @method('DELETE')
                                                                             <button class="btn" type="submit">

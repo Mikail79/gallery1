@@ -24,36 +24,42 @@
             <div class="container px-5 py-2">
                 <a class="navbar-brand text-white" style="margin-left:175px" href="/">Dashboard</a>
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item dropdown">
+                    <div class="dropdown">
                         <a class="nav-link dropdown-toggle text-white" href="#" role="button"
-    data-bs-toggle="dropdown" aria-expanded="false">
-    @auth
-        {{ Auth::user()->name }}
-    @else
-        Profile
-    @endauth
-</a>
-<ul class="dropdown-menu dropdown-menu-dark">
-    @if (!Auth::user())
-        <li>
-            <a class="dropdown-item" href="/login">
-                <i class="fa-solid fa-right-from-bracket"></i> Login
-            </a>
-        </li>
-    @endif
-    @auth <!-- Check if the user is authenticated -->
-        <li>
-            <a class="dropdown-item" href="/logout">
-                <i class="fa-solid fa-right-from-bracket"></i> Logout
-            </a>
-        </li>
-        <li>
-            <a class="dropdown-item" href="/">
-                <i class="fa-solid fa-house"></i> Home
-            </a>
-        </li>
-    @endauth
-</ul>
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            @auth
+                                {{ Auth::user()->name }}
+                            @else
+                                Profile
+                            @endauth
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            @if (!Auth::user())
+                                <li>
+                                    <a class="dropdown-item" href="/login">
+                                        <i class="fa-solid fa-right-from-bracket"></i> Login
+                                    </a>
+                                </li>
+                            @endif
+                            @auth <!-- Check if the user is authenticated -->
+                                <li>
+                                    <a class="dropdown-item" href="/profile">
+                                        <i class="fa-solid fa-user"></i> Profile
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/logout">
+                                        <i class="fa-solid fa-right-from-bracket"></i> Logout
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/">
+                                        <i class="fa-solid fa-house"></i> Home
+                                    </a>
+                                </li>
+                            @endauth
+                        </ul>
+                    </div>
                     </li>
                 </ul>
             </div>

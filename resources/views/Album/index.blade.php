@@ -52,7 +52,7 @@
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton-{{ $album->id }}">
                                 <li>
-                                    <form class="dropdown-item" action="{{ route('album.remove', $album->id) }}" method="POST">
+                                    <form class="dropdown-item" action="{{ route('album.remove', $album->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus album ini?');">
                                         @csrf
                                         @method('DELETE')
                                         <button class="btn" type="submit">

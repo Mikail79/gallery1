@@ -313,7 +313,7 @@
                                                             <li>
                                                                 <form class="dropdown-item"
                                                                     action="{{ route('foto.remove', $foto->id) }}"
-                                                                    method="POST">
+                                                                    method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus komentar ini?');">
                                                                     @csrf
                                                                     @method('DELETE')
                                                                     <button class="btn" type="submit">
@@ -355,7 +355,7 @@
                                                                             <form
                                                                                 class="dropdown-item d-flex align-items-center"
                                                                                 action="{{ route('comment.remove', $komentar->id) }}"
-                                                                                method="POST">
+                                                                                method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus komentar ini?');">
                                                                                 @csrf
                                                                                 @method('DELETE')
                                                                                 <button class="btn" type="submit">

@@ -55,7 +55,7 @@
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton-{{ $foto->id }}">
                                         <li>
                                             <form class="dropdown-item" action="{{ route('foto.remove', $foto->id) }}"
-                                                method="POST">
+                                                method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus foto ini?');">
                                                 @csrf @method('DELETE')
                                                 <button class="btn" type="submit">
                                                     <i class="bi bi-trash"></i> Delete
@@ -106,7 +106,7 @@
                                     </form>
                                 @endif
                                 <span class="m-3">{{ count($foto->likeFoto) }} Like</span>
-                                
+
                             </div>
                             <div class="komen">
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
