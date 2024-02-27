@@ -23,10 +23,42 @@
             <div class="col-xl-6">
                 <div class="text-center text-white">
                     <h1 class="mb-5">Welcome, {{ Auth::user()->name }}!</h1>
+
+                    <section class="mt-5 bg-transparent text-center">
+                        <!-- Carousel for displaying latest photos -->
+                        <h3>Foto Terbaru</h3>
+                        <div id="latestPhotosCarousel" class="carousel slide rounded" data-bs-ride="carousel" style="max-width: 600px; margin: 0 auto; overflow: hidden;">
+                            <div class="carousel-inner">
+                                @foreach ($fotos as $key => $foto)
+                                <div class="carousel-item {{ $key === 0 ? 'active' : '' }}">
+                                    <img src="{{ asset($foto->file_location) }}" class="d-block w-100" style="object-fit: cover; height: 300px;" alt="{{ $foto->file_location }}">
+                                </div>
+                                @endforeach
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#latestPhotosCarousel" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#latestPhotosCarousel" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    </section>
+                    <div class="text-center">
+                        <i class="fa-solid fa-arrow-down fa-3x"></i>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        // Inisialisasi Carousel
+        var latestPhotosCarousel = new bootstrap.Carousel(document.getElementById('latestPhotosCarousel'), {
+            interval: 300 // Waktu interval dalam milidetik antara slide
+        });
+    </script>
 </header>
 @endauth
 
@@ -37,7 +69,7 @@
 <section class="mt-5 bg-light text-center">
     <div class="row mx-auto mt-5">
         <div class="row">
-            
+
             <div class="d-flex justify-content-center mb-5">
                 <style>
                     .btn-custom {
@@ -46,23 +78,23 @@
                         border-radius: 25px;
                         transition: all 0.3s ease;
                     }
-                
+
                     .btn-custom:hover {
                         transform: translateY(-2px);
                     }
-                
+
                     .btn-album {
                         background-color: #1B1A55;
                         color: #fff;
                         border: 2px solid #1B1A55;
                     }
-                
+
                     .btn-foto {
                         background-color: #1F2544;
                         color: #fff;
                         border: 2px solid #1F2544;
                     }
-                    
+
                 </style>
                 <div class="d-flex justify-content-center mb-5">
                     <div class="d-flex">

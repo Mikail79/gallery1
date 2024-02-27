@@ -6,6 +6,7 @@ use App\Models\Foto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class FotoController extends Controller
 {
@@ -13,7 +14,7 @@ class FotoController extends Controller
      * Display a listing of the resource.
      */
     public function index($albumId)
-    {   
+    {
         $fotos = Foto::where('album_id',$albumId)->get();
         return view("Album.Image.index", compact("fotos", 'albumId'));
     }
@@ -86,11 +87,11 @@ class FotoController extends Controller
         $fotoRequest=$request->validate([
             'title'=> 'required',
             'description'=> 'required',
-            
+
         ],[
             'title.required'=> 'Judul harus diisi',
             'description.required'=>'Deskripsi harus diisi',
-            
+
         ]);
         $foto->update($fotoRequest);
         return redirect()->back();
@@ -100,16 +101,19 @@ class FotoController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(Request $request, $id)
-    {
-        $foto = Foto::findOrFail($id);
-    
-        // Delete the photo file
-        Storage::delete($foto->file_location);
-    
-        // Delete the photo record
-        $foto->delete();
-    
-        // Redirect back to the album page with a success message
-        return redirect()->back()->with('success', 'Foto berhasil dihapus.');
+{
+    $foto = Foto::findOrFail($id);
+
+    // Hapus file foto
+    if (File::exists(public_path($foto->file_location))) {
+        unlink(public_path($foto->file_location));
     }
+
+    // Hapus catatan foto dari database
+    $foto->delete();
+
+    // Redirect kembali ke halaman album dengan pesan sukses
+    return redirect()->back()->with('success', 'Foto berhasil dihapus.');
+}
+
 }

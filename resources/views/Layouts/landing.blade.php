@@ -44,7 +44,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 h-100 text-center text--start my-auto">
-                   
+
                     <p class="text-muted small mb-4 mb-lg-0">Mika Company</p>
                 </div>
                 <div class="col-lg-12 h-100 text-center mx-auto">
@@ -57,6 +57,7 @@
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    <script src="https://kit.fontawesome.com/b3e36d9cbe.js" crossorigin="anonymous"></script>
 </body>
 
 </html>

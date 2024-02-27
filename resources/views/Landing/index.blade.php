@@ -194,17 +194,17 @@
                     border-radius: 25px;
                     transition: all 0.3s ease;
                 }
-            
+
                 .btn-custom:hover {
                     transform: translateY(-2px);
                 }
-            
+
                 .btn-album {
                     background-color: #1B1A55;
                     color: #fff;
                     border: 2px solid #1B1A55;
                 }
-            
+
                 .btn-foto {
                     background-color: #1F2544;
                     color: #fff;
@@ -217,8 +217,8 @@
                     <a class="btn btn-custom btn-foto" href="/foto-landing">Foto</a>
                 </div>
             </div>
-            
-            
+
+
             @foreach ($albums as $album)
             <div class="col-lg-4">
                 <a href="{{ route('landing.album', $album->id) }}" class="text-decoration-none">

@@ -26,7 +26,7 @@ class IsAdmin
         if (Auth::check()) {
             // If the user is not an admin, you can redirect them to a different route or return a response
             // For example, you can redirect them to the home page
-            return redirect()->route('home');
+            return redirect()->route('foto.index');
         }
 
         // If the user is not authenticated, you can redirect them to the login page or return a response

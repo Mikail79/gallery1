@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Album;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class AlbumController extends Controller
 {
@@ -13,7 +14,7 @@ class AlbumController extends Controller
      */
     public function index()
     {
-        $albums = ''; 
+        $albums = '';
         if (Auth::user()->role == 'admin') {
             $albums = Album::all();
         } elseif(Auth::user()->role == 'user') {
@@ -93,17 +94,27 @@ class AlbumController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy($id)
-    {
-        $album = Album::find($id);
-        if (!$album) {
-            return redirect()->route('album.index')->with('error', 'Album tidak ditemukan');
+{
+    $album = Album::find($id);
+    if (!$album) {
+        return redirect()->route('album.index')->with('error', 'Album tidak ditemukan');
+    }
+
+    // Hapus semua foto yang terkait dengan album tersebut
+    foreach ($album->foto as $photo) {
+        // Hapus file foto
+        if (File::exists(public_path($photo->file_location))) {
+            unlink(public_path($photo->file_location));
         }
 
-        foreach ($album->foto as $photo) {
-            $photo->delete();
-        }
-        
-        $album->delete();
-        return redirect()->route('album.index')->with('success','Album berhasil dihapus');
+        // Hapus catatan foto dari database
+        $photo->delete();
     }
+
+    // Hapus catatan album dari database
+    $album->delete();
+
+    // Redirect kembali ke halaman album dengan pesan sukses
+    return redirect()->route('album.index')->with('success','Album berhasil dihapus');
+}
 }
