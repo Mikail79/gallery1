@@ -4,7 +4,9 @@
 <div class="m-3 ">
     <div class="d-flex justify-content-between mb-3">
         <h4>Album</h4>
-        <a class="btn btn-primary" href="{{ route('album.create') }}">Create</a>
+        <a class="btn btn-info btn-lg rounded-pill shadow-sm mt-5" href="{{ route('album.create') }}">
+            <i class="bi bi-plus"></i> Add Album
+        </a>
     </div>
     @if (session('error'))
     <div class="alert alert-danger alert-dismissible show fade">
@@ -76,6 +78,7 @@
                         </div>
                     </div>
                     <p class="card-text">{{ $album->description }}</p>
+                    <p class="text-black">Created at: {{ $album->created_at->format('Y-m-d') }}</p>
                 </div>
             </div>
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
@@ -31,7 +32,7 @@ class AuthController extends Controller
             'alamat.required' => 'Alamat harus diisi',
             'password.required'=>'Password harus diisi'
         ]);
-        
+
         User::create([
             'name'=> $request->name,
             'username'=> $request->username,
@@ -49,17 +50,24 @@ class AuthController extends Controller
             'password' => ['required'],
         ]);
 
+        // Cek apakah pengguna diblokir
+        $user = User::where('email', $request->email)->first();
+        if ($user && $user->is_blocked) {
+            // Arahkan pengguna ke tampilan blocked jika akunnya diblokir
+            return view('auth.blocked');
+        }
+
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect('/')->with('success','Login sukses');
+            return redirect('/')->with('success', 'Login sukses');
         }
 
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ])->onlyInput('email');
+        throw ValidationException::withMessages([
+            'email' => __('auth.failed'),
+        ]);
     }
-    
+
     public function logout(Request $request)
     {
         Auth::logout();

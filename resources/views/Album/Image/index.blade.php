@@ -4,7 +4,9 @@
     <div class="m-3">
         <div class="d-flex justify-content-between mb-3">
             <h4>Foto</h4>
-            <a class="btn btn-primary" href="{{ route('foto.create', $albumId) }}">Create</a>
+            <a class="btn btn-info btn-lg rounded-pill shadow-sm" href="{{ route('foto.create', $albumId) }}">
+                <i class="bi bi-plus"></i> Add Foto
+            </a>
         </div>
         @if (session('error'))
             <div class="alert alert-danger alert-dismissible show fade">
@@ -45,6 +47,7 @@
                                 <div>
                                     <h5 class="card-title">{{ $foto->title }}</h5>
                                     <p class="card-text">{{ $foto->description }}</p>
+                                    <p>Created at: {{ $foto->created_at }}</p>
                                 </div>
                                 <div class="dropdown">
                                     <button class="btn dropdown-toggle noarrow dropdown-btn" type="button"

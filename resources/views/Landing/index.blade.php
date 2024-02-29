@@ -156,6 +156,27 @@
                     </div>
                 </div>
             </div>
+            <div class="col-xl-12 mt-5 text-white fw-bolder fst-italic text-center">
+                <h3 class="mb-4">HUBUNGI KAMI</h3>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <h5><i class="fas fa-map-marker-alt"></i> ALAMAT SURAT</h5>
+                        <p>Jalan Veteran III Citapen Ciawi Kab.Bogor</p>
+                    </div>
+
+                    <div class="col-md-4">
+                        <h5><i class="fas fa-phone"></i> NOMOR TELEPON</h5>
+                        <p>(+62) 857 - 7143 - 9217</p>
+                    </div>
+
+                    <div class="col-md-4">
+                        <h5><i class="fas fa-envelope"></i> ALAMAT SUREL</h5>
+                        <p>mikailalfasya06@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </header>
@@ -173,12 +194,7 @@
         </div>
     </div>
 </header>
-@endauth
 
-<!-- Search form -->
-
-
-<!-- Albums section -->
 <section class="mt-5 bg-light text-center">
     <div class="container">
         <div class="row">
@@ -241,5 +257,14 @@
         </div>
     </div>
 </section>
+@endauth
+
 @endsection
+
+
+<!-- Search form -->
+
+
+<!-- Albums section -->
+
 

@@ -14,14 +14,27 @@ class AlbumController extends Controller
      */
     public function index()
     {
-        $albums = '';
         if (Auth::user()->role == 'admin') {
             $albums = Album::all();
-        } elseif(Auth::user()->role == 'user') {
-            $albums = Album::where('user_id', Auth::user()->id)->get();
+        } else {
+            // Beri pesan peringatan jika pengguna bukan admin
+            session()->flash('warning', 'Anda bukan admin.');
+            return redirect()->route('landing.index'); // Ganti 'home' dengan route yang sesuai
         }
+
         return view('album.index', compact('albums'));
     }
+
+    // public function index()
+    // {
+    //     $albums = '';
+    //     if (Auth::user()->role == 'admin') {
+    //         $albums = Album::all();
+    //     } elseif(Auth::user()->role == 'user') {
+    //         $albums = Album::where('user_id', Auth::user()->id)->get();
+    //     }
+    //     return view('album.index', compact('albums'));
+    // }
 
     /**
      * Show the form for creating a new resource.

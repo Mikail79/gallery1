@@ -58,7 +58,7 @@
     <script>
         // Inisialisasi Carousel
         var latestPhotosCarousel = new bootstrap.Carousel(document.getElementById('latestPhotosCarousel'), {
-            interval: 200 // Waktu interval dalam milidetik antara slide
+            interval: 150 // Waktu interval dalam milidetik antara slide
         });
 
     </script>
@@ -175,6 +175,7 @@
                                             <p>
                                                 {{ $foto->description }}
                                             </p>
+                                            <p>Created at: {{ $foto->created_at }}</p>
                                         </div>
                                         <div class="p-1 overflow-auto" style="max-height: 300px; height: 100%;">
                                             @if (count($foto->komentarFoto) == 0)

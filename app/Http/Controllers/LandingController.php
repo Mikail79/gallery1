@@ -13,26 +13,26 @@ class LandingController extends Controller
     public function albumIndex($id)
     {
         $album = Album::findOrFail($id);
-        
+
         // Check if user is authenticated
         if (!auth()->check()) {
             // User is not logged in, redirect to login page
             return redirect()->route('loginIndex')->with('error', 'Please login to view this album.');
         }
-        
+
         return view("Landing.album", compact('album'));
     }
 
     public function fotoIndex()
     {
         $fotos = Foto::all();
-        
+
         // Check if user is authenticated
         if (!auth()->check()) {
             // User is not logged in, redirect to login page
             return redirect()->route('loginIndex')->with('error', 'Please login to view this foto.');
         }
-        
+
         return view("Landing.foto", compact('fotos'));
     }
 
@@ -51,7 +51,7 @@ class LandingController extends Controller
         $albums->where('album_name', 'like', '%' . $searchQuery . '%')
             ->orWhere('description', 'like', '%' . $searchQuery . '%')
             ->orWhereHas('user', function ($query) use ($searchQuery) {
-                $query->where('name', 'like', '%' . $searchQuery . '%');
+                $query->where('username', 'like', '%' . $searchQuery . '%');
             });
     }
 
@@ -73,8 +73,8 @@ class LandingController extends Controller
     return view("Landing.index", compact('albums', 'fotos'));
 }
 
-    
-    
+
+
 
 
 }

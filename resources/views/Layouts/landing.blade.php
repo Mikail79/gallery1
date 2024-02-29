@@ -26,7 +26,12 @@
     <nav class="navbar navbar-light  static-top" style="background-color: #265073">
         <div class="container">
             <a href="/"> <img src={{asset("assets/image/pictorium2.png")}} class="navbar-brand" href="/" width="150" height="80"></img>
+
                 <div class=""></a>
+                    {{-- @if (Auth::check() && Auth::user()->role === 'admin')
+    <!-- Tombol hanya akan terlihat jika pengguna terotentikasi dan memiliki peran admin -->
+    <a href="{{ route('admin.index') }}" class="btn btn-primary">Halaman Admin</a>
+@endif --}}
                 <a class="btn btn-lg text-light" href="/album">Album</a>
                 @if (Auth::check())
                     <a class="btn btn-lg text-light" href="/logout">{{ Auth::user()->username }}</a>
@@ -34,6 +39,7 @@
                     <a class="btn btn-lg text-light" href="/login">Login</a>
                 @endif
             </div>
+
         </div>
     </nav>
     <div class="">
@@ -43,9 +49,8 @@
     <footer class="footer p-4 " style="background-color: #637A9F">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12 h-100 text-center text--start my-auto">
-
-                    <p class="text-muted small mb-4 mb-lg-0">Mika Company</p>
+                <div class="col-lg-12 h-100 text-center text--start my-auto text-white">
+                    <p class="text-muted small mb-4 mb-lg-0">Copyright © 2024 PT MIKA COMPANY.</p>
                 </div>
                 <div class="col-lg-12 h-100 text-center mx-auto">
                     <img src={{asset("assets/image/mika2.png")}} alt="Company Logo"

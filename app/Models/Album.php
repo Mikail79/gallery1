@@ -10,7 +10,7 @@ class Album extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
-
+    protected $dates = ['created_at'];
     public function foto()
     {
         return $this->hasMany(Foto::class);

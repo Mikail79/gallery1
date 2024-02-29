@@ -7,6 +7,7 @@ use App\Http\Controllers\KomentarFotoController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\LikeFotoController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [LandingController::class, 'index'])->name('landing.index');
@@ -51,6 +52,8 @@ Route::middleware(['admin'])->group(function () {
     Route::delete('/admin/album/image/comment/{id}/remove', [KomentarFotoController::class, 'destroy'])->name('admin.comment.remove');
     Route::delete('/admin/album/{id}/remove', [AlbumController::class, 'destroy'])->name('admin.album.remove');
     Route::delete('/admin/foto/{id}/remove', [FotoController::class, 'destroy'])->name('admin.foto.remove');
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+    Route::post('/admin/ban-user/{userId}', [AdminController::class, 'banUser'])->name('admin.banUser');
 });
 
 Route::get('/login', [AuthController::class, 'loginIndex'])->name('loginIndex');

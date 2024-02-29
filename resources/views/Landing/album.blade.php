@@ -234,6 +234,7 @@
                     <div class="text-center text-white">
                         <h1 class="mb-5">{{ $album->album_name }}</h1>
                         <h4 class="text-white"> Created by {{ $album->user->username }}!</h4>
+                        <p class="text-white">Created at: {{ $album->created_at->format('Y-m-d') }}</p>
                     </div>
                 </div>
             </div>
@@ -300,6 +301,7 @@
                                                 <p>
                                                     {{ $foto->description }}
                                                 </p>
+                                                <p>Created at: {{ $foto->created_at }}</p>
                                                 @if (Auth::user()->role === 'admin')
                                                     <!--delete buttons for photos -->
                                                     <div class="dropdown">
